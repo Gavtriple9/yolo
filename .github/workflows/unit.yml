@@ -7,7 +7,7 @@ on:
 
 jobs:
   yolo_unit_tests:
-    runs-on: [self-hosted, server]
+    runs-on: [self-hosted, heaviside]
     steps:
       - uses: actions/checkout@v3
       - name: Set up Python environment
