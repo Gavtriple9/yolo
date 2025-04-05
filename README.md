@@ -2,7 +2,7 @@
 
 ## API Documentation
 
-[empire-penguin.github.io/yolo](https://empire-penguin.github.io/yolo/)
+[Gavtriple9.github.io/yolo](https://Gavtriple9.github.io/yolo/)
 
 ## Build Documentation
 
@@ -16,7 +16,7 @@ make html
 ### Clone Repo
 
 ```bash
-git clone https://github.com/empire-penguin/yolo
+git clone https://github.com/Gavtriple9/yolo
 cd yolo
 ```
 
