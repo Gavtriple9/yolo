@@ -1,6 +1,6 @@
 import unittest
 
-from yolo.bbox import BoundingBox
+from yolo.base.rect import Rectangle
 
 
 class TestBoundingBox(unittest.TestCase):
@@ -20,8 +20,8 @@ class TestBoundingBox(unittest.TestCase):
                    Y
         """
 
-        self.bbox1 = BoundingBox(0, 0, 1, 2, 0.5)
-        self.bbox2 = BoundingBox(1, 1, 2, 1, 0.5)
+        self.bbox1 = Rectangle((0, 0), 1, 2, 0.5)
+        self.bbox2 = Rectangle((1, 1), 2, 1, 0.5)
 
     def test_get_top_left(self):
         self.assertEqual(self.bbox1.get_top_left(), (-0.5, -1.0))

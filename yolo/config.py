@@ -7,7 +7,7 @@ Note: These values are only defined so a config file is not required
       to run the program. If a config file is provided, the values
       in the config file will override these defaults.
 """
-# --------------------------------------------------------------------- 
+# ---------------------------------------------------------------------
 
 
 class Singleton(type):

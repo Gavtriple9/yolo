@@ -3,8 +3,9 @@ import os
 import numpy as np
 import PIL.Image as Image
 
-import yolo.utils 
-from yolo.bbox import BoundingBox
+import yolo.utils
+from yolo.base.rect import Rectangle
+from yolo.base.gridcell import GridCell
 
 
 class TestUtils(unittest.TestCase):
@@ -12,10 +13,10 @@ class TestUtils(unittest.TestCase):
         self.path = os.path.join(os.path.dirname(__file__), "../config/default.toml")
         self.width = 500
         self.height = 375
-        self.bbox1 = BoundingBox(143, 178, 48, 124, 0.1)
-        self.bbox2 = BoundingBox(338, 236, 297, 241, 0.1)
-        self.bbox3 = BoundingBox(62, 178, 48, 124, 0.1)
-        self.bbox4 = BoundingBox(100, 47, 167, 65, 0.1)
+        self.bbox1 = Rectangle((143, 178), 48, 124, 0.1)
+        self.bbox2 = Rectangle((338, 236), 297, 241, 0.1)
+        self.bbox3 = Rectangle((62, 178), 48, 124, 0.1)
+        self.bbox4 = Rectangle((100, 47), 167, 65, 0.1)
 
     def test_open_toml(self):
         data = yolo.utils.open_toml(self.path)
@@ -34,23 +35,34 @@ class TestUtils(unittest.TestCase):
             image.save("images/test.png")
 
     def test_generate_grid(self):
-        grids = yolo.utils.generate_grid_cells((450, 513), (7, 8))
-        assert grids.shape == (7, 8)
-        total_pixels = 450 * 513
-        count = 0
-        for i in range(7):
-            for j in range(8):
-                count += grids[i][j].width * grids[i][j].height
+        image_size = (450, 513)
+        grid_size = (7, 8)
 
-        assert count == total_pixels
+        # Generate grid cells
+        grids = yolo.utils.generate_grid_cells(image_size, grid_size)
+
+        # Check if the grid cells are of the correct size
+        assert grids.shape == grid_size
+
+        grid: GridCell
+        count = 0
+        # Check that we didn't lose any pixels
+        for grid in grids.flatten():
+            count += grid.width * grid.height
+        assert count == image_size[0] * image_size[1]
 
     def test_draw_grid_on_image(self):
         input_image = os.path.join(os.path.dirname(__file__), "../images/example.jpg")
         with open(input_image, "rb") as f:
             image_buf: np.ndarray = np.array(Image.open(f))
 
-        grids = yolo.utils.generate_grid_cells((image_buf.shape[1], image_buf.shape[0]), (7, 7))
-        image_buf = yolo.utils.draw_grid_on_image(image_buf, grids,)
+        grids = yolo.utils.generate_grid_cells(
+            (image_buf.shape[1], image_buf.shape[0]), (7, 7)
+        )
+        image_buf = yolo.utils.draw_grid_on_image(
+            image_buf,
+            grids,
+        )
         image = Image.fromarray(image_buf, "RGB")
         image.save("images/test2.png")
 

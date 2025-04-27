@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 
+
 class Guru:
     """
     A Guru or instructor that trains models
@@ -15,10 +16,10 @@ class Guru:
         self.training_loader = training_loader
         self.model = model
         self.loss_fn = nn.CrossEntropyLoss()
-    
+
     def train_one_epoch(self, epoch_index, tb_writer):
-        running_loss = 0.
-        last_loss = 0.
+        running_loss = 0.0
+        last_loss = 0.0
 
         # Here, we use enumerate(training_loader) instead of
         # iter(training_loader) so that we can track the batch
@@ -43,10 +44,10 @@ class Guru:
             # Gather data and report
             running_loss += loss.item()
             if i % 1000 == 999:
-                last_loss = running_loss / 1000 # loss per batch
-                print('  batch {} loss: {}'.format(i + 1, last_loss))
+                last_loss = running_loss / 1000  # loss per batch
+                print("  batch {} loss: {}".format(i + 1, last_loss))
                 tb_x = epoch_index * len(self.training_loader) + i + 1
-                tb_writer.add_scalar('Loss/train', last_loss, tb_x)
-                running_loss = 0.
+                tb_writer.add_scalar("Loss/train", last_loss, tb_x)
+                running_loss = 0.0
 
         return last_loss

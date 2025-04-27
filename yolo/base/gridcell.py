@@ -1,4 +1,5 @@
-from yolo.bbox import BoundingBox
+from yolo.base.rect import Rectangle
+
 
 class GridCell:
     """A section of an input image that is responsible for detecting objects.
@@ -32,20 +33,18 @@ class GridCell:
         :rtype: list[:class:`BoundingBox`]
         """
         if self.index == (1, 0):
-            return [
-                BoundingBox(100, 47, 167, 65, 0.1)
-            ]
+            return [Rectangle((100, 47), 167, 65, 0.1)]
         elif self.index == (0, 3):
             return [
-                BoundingBox(62, 178, 48, 124, 0.1),
+                Rectangle((62, 178), 48, 124, 0.1),
             ]
         elif self.index == (2, 3):
             return [
-                BoundingBox(143, 178, 48, 124, 0.1),
+                Rectangle((143, 178), 48, 124, 0.1),
             ]
         elif self.index == (4, 4):
             return [
-                BoundingBox(338, 236, 297, 241, 0.1),
+                Rectangle((338, 236), 297, 241, 0.1),
             ]
         else:
             return []

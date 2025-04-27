@@ -6,7 +6,7 @@ def open_toml(path):
     :returns: a dict from a toml file
     :rtype: dict
     """
-    
+
     with open(path, "r") as f:
         data = toml.load(f)
     return data

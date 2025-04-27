@@ -25,17 +25,18 @@ class Colors:
     NEGATIVE = "\033[7m"
     CROSSED = "\033[9m"
     END = "\033[0m"
-    
+
+
 def color_text(color: str, text: str) -> str:
     """
     Color the text with the specified color.
-    
+
     :param color: The color to use.
     :type color: str
-    
+
     :param text: The text to color.
     :type text: str
-    
+
     :return: The colored text.
     :rtype: str
     """
