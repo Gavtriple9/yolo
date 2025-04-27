@@ -27,5 +27,9 @@ setup(
     ],
     long_description=long_description,
     long_description_content_type="text/markdown",
-    license="MIT",
+    entry_points={
+        'console_scripts': [
+            'yolo = yolo.__main__:main'
+        ],
+    },
 )

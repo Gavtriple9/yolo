@@ -229,7 +229,7 @@ activation = 'linear'
 dropout = 0.0
 
 # Ninth Section
-[[model.layers]]
-type = 'reshape'
-name = 'reshape'
-shape = [7, 7, 30]
+# [[model.layers]]
+# type = 'reshape'
+# name = 'reshape'
+# shape = [7, 7, 30]

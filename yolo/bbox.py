@@ -46,19 +46,19 @@ class BoundingBox:
             and self.c == other.c
         )
 
-    def get_top_left(self):
+    def get_top_left(self) -> tuple[int, int]:
         """
         :returns: top left corner of the bounding box
         :rtype: tuple (float, float)
         """
-        return (self.x - self.w / 2, self.y - self.h / 2)
+        return (math.floor(self.x - self.w / 2) + 1, math.floor(self.y - self.h / 2) + 1)
 
-    def get_bottom_right(self):
+    def get_bottom_right(self) -> tuple[int, int]:
         """
         :returns: bottom right corner of the bounding box
         :rtype: tuple (float, float)
         """
-        return (self.x + self.w / 2, self.y + self.h / 2)
+        return (math.ceil(self.x + self.w / 2), math.ceil(self.y + self.h / 2))
 
     def get_center(self):
         """
