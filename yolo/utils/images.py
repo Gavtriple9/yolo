@@ -2,8 +2,7 @@ import PIL.Image as Image
 import numpy as np
 import cv2
 
-from yolo.base.gridcell import GridCell
-from yolo.base.rect import Rectangle
+from yolo.base import GridCell, Rectangle
 
 BOUNDING_BOX_COLOR = (0, 255, 255)
 BOUNDING_BOX_THICKNESS = 2
@@ -51,10 +50,8 @@ def draw_bbox_on_image(
     :rtype: numpy.ndarray
     """
     for bbox in bbox_list:
-        start_point = bbox.get_top_left()
-        end_point = bbox.get_bottom_right()
-        point_x = int(bbox.x)
-        point_y = int(bbox.y)
+        start_point = bbox.get_top_left_pixel()
+        end_point = bbox.get_bottom_right_pixel()
 
         # Draw the bounding box
         cv2.rectangle(
@@ -67,7 +64,7 @@ def draw_bbox_on_image(
 
         # Draw the center point
         if draw_midpoint:
-            cv2.circle(image_buf, (point_x, point_y), MIDPOINT_SIZE, MIDPOINT_COLOR, -1)
+            cv2.circle(image_buf, bbox.center, MIDPOINT_SIZE, MIDPOINT_COLOR, -1)
 
     return image_buf
 

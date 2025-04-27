@@ -1,144 +1,5 @@
 import math
-
-
-class Point:
-    """Point in an image"""
-
-    def __init__(self, x: float, y: float):
-        """Constructor for a point
-
-        :param x: x coordinate of the point
-        :type x: float
-
-        :param y: y coordinate of the point
-        :type y: float
-
-        :returns: instance of the Point class
-        :rtype: :class:`Point`
-        """
-        self.x: float = x
-        self.y: float = y
-
-    def __str__(self):
-        return f"({self.x}, {self.y})"
-
-    def __repr__(self):
-        return f"({self.x}, {self.y})"
-
-    def __add__(self, other: "Point"):
-        """Adds two points together
-
-        :param other: point to add
-        :type other: :class:`Point`
-
-        :returns: sum of the two points
-        :rtype: :class:`Point`
-        """
-        return Point(self.x + other.x, self.y + other.y)
-
-    def __sub__(self, other: "Point"):
-        """Subtracts two points
-
-        :param other: point to subtract
-        :type other: :class:`Point`
-
-        :returns: difference of the two points
-        :rtype: :class:`Point`
-        """
-        return Point(self.x - other.x, self.y - other.y)
-
-    def __mul__(self, scalar: float):
-        """Multiplies a point by a scalar
-
-        :param scalar: scalar to multiply by
-        :type scalar: float
-
-        :returns: product of the point and scalar
-        :rtype: :class:`Point`
-        """
-        return Point(self.x * scalar, self.y * scalar)
-
-    def __div__(self, scalar: float):
-        """Divides a point by a scalar
-
-        :param scalar: scalar to divide by
-        :type scalar: float
-
-        :returns: quotient of the point and scalar
-        :rtype: :class:`Point`
-        """
-        return Point(self.x / scalar, self.y / scalar)
-
-    def __eq__(self, other: "Point"):
-        """Tests if two points are equal
-
-        :param other: point to compare
-        :type other: :class:`Point`
-
-        :returns: True if the two points are equal
-        :rtype: bool
-        """
-        return self.x == other.x and self.y == other.y
-
-    def __ne__(self, other: "Point"):
-        """Tests if two points are not equal
-
-        :param other: point to compare
-        :type other: :class:`Point`
-
-        :returns: True if the two points are not equal
-        :rtype: bool
-        """
-        return not self.__eq__(other)
-
-    def integral(self):
-        """Returns the integral of the point
-
-        :returns: integral of the point
-        :rtype: :class:`Point`
-        """
-        return Point(int(self.x), int(self.y))
-
-    def integralize(self):
-        """
-        Converts the point to an integral point in place
-        """
-        self.x = int(self.x)
-        self.y = int(self.y)
-
-    def real(self):
-        """Returns the real value of the point
-
-        :returns: real value of the point
-        :rtype: :class:`Point`
-        """
-        return Point(float(self.x), float(self.y))
-
-    def realize(self):
-        """
-        Converts the point to a real point in place
-        """
-        self.x = float(self.x)
-        self.y = float(self.y)
-
-    def distance(self, other: "Point"):
-        """Calculates the distance between two points
-
-        :param other: point to calculate distance to
-        :type other: :class:`Point`
-
-        :returns: distance between the two points
-        :rtype: float
-        """
-        return math.sqrt((self.x - other.x) ** 2 + (self.y - other.y) ** 2)
-
-    def as_tuple(self):
-        """Returns the point as a tuple
-
-        :returns: point as a tuple
-        :rtype: tuple (float, float)
-        """
-        return (self.x, self.y)
+from yolo.base.point import Point
 
 
 class Rectangle:
@@ -162,18 +23,18 @@ class Rectangle:
         :returns: instance of the BoundingBox class
         :rtype: :class:`BoundingBox`
         """
-        self.center: Point = Point(p)
+        self.center: Point = Point(p[0], p[1])
         self.w = w
         self.h = h
         self.c = c
 
-    def __str__(self):
-        return f"({self.center.x}, {self.center.y}, {self.w}, {self.h}, {self.c})"
+    def __str__(self) -> str:
+        return f"({self.x()}, {self.y()}, {self.w}, {self.h}, {self.c})"
 
-    def __repr__(self):
-        return f"({self.center.x}, {self.center.y}, {self.w}, {self.h}, {self.c})"
+    def __repr__(self) -> str:
+        return f"({self.x()}, {self.y()}, {self.w}, {self.h}, {self.c})"
 
-    def __eq__(self, other: "Rectangle"):
+    def __eq__(self, other: "Rectangle") -> bool:
         return (
             self.center == other.center
             and self.w == other.w
@@ -181,17 +42,32 @@ class Rectangle:
             and self.c == other.c
         )
 
-    def x(self) -> int:
-        return int(self.center.x)
+    def x(self) -> float:
+        return self.center.x
+
+    def y(self) -> float:
+        return self.center.y
+
+    def get_top_left_pixel(self) -> Point:
+        return Point(
+            math.floor(self.x() - self.w / 2) + 1,
+            math.floor(self.y() - self.h / 2) + 1,
+        )
+
+    def get_bottom_right_pixel(self) -> Point:
+        return Point(
+            math.ceil(self.x() + self.w / 2),
+            math.ceil(self.y() + self.h / 2),
+        )
 
     def get_top_left(self) -> Point:
         """
         :returns: top left corner of the bounding box
         :rtype: tuple (float, float)
         """
-        return (
-            math.floor(self.center.x - self.w / 2) + 1,
-            math.floor(self.center.y - self.h / 2) + 1,
+        return Point(
+            self.x() - self.w / 2,
+            self.y() - self.h / 2,
         )
 
     def get_bottom_right(self) -> Point:
@@ -199,9 +75,9 @@ class Rectangle:
         :returns: bottom right corner of the bounding box
         :rtype: tuple (float, float)
         """
-        return (
-            math.ceil(self.center.x + self.w / 2),
-            math.ceil(self.center.y + self.h / 2),
+        return Point(
+            self.x() + self.w / 2,
+            self.y() + self.h / 2,
         )
 
     def get_center(self) -> Point:
@@ -211,7 +87,7 @@ class Rectangle:
         """
         return self.center
 
-    def get_width(self):
+    def get_width(self) -> float:
         """
         :returns: width of the bounding box
         :rtype: float
@@ -300,10 +176,10 @@ class Rectangle:
         :rtype: bool
         """
         inclsv_bb = Rectangle(
-            self.center.x, self.center.y, self.w + delta, self.h + delta, self.c
+            self.x(), self.y(), self.w + delta, self.h + delta, self.c
         )
         exclsv_bb = Rectangle(
-            self.center.x, self.center.y, self.w - delta, self.h - delta, self.c
+            self.x(), self.y(), self.w - delta, self.h - delta, self.c
         )
         return inclsv_bb.contains(p.x, p.y) and not exclsv_bb.contains(p.x, p.y)
 
@@ -327,11 +203,11 @@ class Rectangle:
         :rtype: float
         """
         if self.intersects(other):
-            top_left = (
+            top_left = Point(
                 max(self.get_top_left().x, other.get_top_left().x),
                 max(self.get_top_left().y, other.get_top_left().y),
             )
-            bottom_right = (
+            bottom_right = Point(
                 min(self.get_bottom_right().x, other.get_bottom_right().x),
                 min(self.get_bottom_right().y, other.get_bottom_right().y),
             )

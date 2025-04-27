@@ -1,6 +1,6 @@
 import unittest
 
-from yolo.base.rect import Rectangle
+from yolo.base import Rectangle, Point
 
 
 class TestBoundingBox(unittest.TestCase):
@@ -24,12 +24,12 @@ class TestBoundingBox(unittest.TestCase):
         self.bbox2 = Rectangle((1, 1), 2, 1, 0.5)
 
     def test_get_top_left(self):
-        self.assertEqual(self.bbox1.get_top_left(), (-0.5, -1.0))
-        self.assertEqual(self.bbox2.get_top_left(), (0.0, 0.5))
+        self.assertEqual(self.bbox1.get_top_left(), Point(-0.5, -1.0))
+        self.assertEqual(self.bbox2.get_top_left(), Point(0.0, 0.5))
 
     def test_get_bottom_right(self):
-        self.assertEqual(self.bbox1.get_bottom_right(), (0.5, 1.0))
-        self.assertEqual(self.bbox2.get_bottom_right(), (2.0, 1.5))
+        self.assertEqual(self.bbox1.get_bottom_right(), Point(0.5, 1.0))
+        self.assertEqual(self.bbox2.get_bottom_right(), Point(2.0, 1.5))
 
     def test_intersects(self):
         self.assertTrue(self.bbox1.intersects(self.bbox2))
