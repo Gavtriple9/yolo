@@ -9,3 +9,7 @@ from yolo.utils.images import (
 from yolo.utils.io import (
     open_toml,
 )
+
+from yolo.utils.convert import (
+    annos_to_rects,
+)

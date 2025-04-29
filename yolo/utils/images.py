@@ -11,24 +11,19 @@ MIDPOINT_SIZE = 1
 MIDPOINT_COLOR = (255, 0, 255)
 
 
-def save_image_buf(
-    image_buf: np.ndarray, path: str, size: tuple[int, int, int] = (448, 448, 3)
-):
+def save_image_buf(image_buf: np.ndarray, path: str):
     """saves an image buffer to a file
 
     :param image_buf: image buffer as a numpy array
     :type image_buf: numpy.ndarray
     :param path: path to save the image to
     :type path: str
-    :param size: size of the image, defaults to (448, 448, 3)
-    :type size: tuple, optional
 
     :returns: None
     :rtype: None
     """
 
-    image = Image.new("RGBA", size)
-    image.putdata(image_buf)
+    image = Image.fromarray(image_buf, "RGB")
     image.save(path)
 
 

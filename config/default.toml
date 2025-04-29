@@ -1,7 +1,9 @@
 log_dir = 'logs' # Log directory
 
-drop_out = 0.5        # Dropout rate
+[train]
+epochs = 1000         # Number of epochs
 batch_size = 64       # Batch size
+drop_out = 0.5        # Dropout rate
 momentum = 0.9        # Momentum
 weight_decay = 0.0005 # Weight decay
 

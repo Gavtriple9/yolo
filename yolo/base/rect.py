@@ -28,6 +28,18 @@ class Rectangle:
         self.h = h
         self.c = c
 
+    @staticmethod
+    def from_corners(self, top_left: Point, bottom_right: Point) -> "Rectangle":
+        return Rectangle(
+            Point(
+                (top_left.x + bottom_right.x) / 2,
+                (top_left.y + bottom_right.y) / 2,
+            ),
+            abs(bottom_right.x - top_left.x),
+            abs(bottom_right.y - top_left.y),
+            1.0,
+        )
+
     def __str__(self) -> str:
         return f"({self.x()}, {self.y()}, {self.w}, {self.h}, {self.c})"
 

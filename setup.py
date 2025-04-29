@@ -12,7 +12,7 @@ setup(
     description="A basic YOLO implementation in Python",
     author="Gavin Roberts",
     author_email="gsroberts@ucsd.edu",
-    url="https://github.com/empire-penguin/yolo",
+    url="https://github.com/gavtriple9/yolo",
     packages=find_packages(),
     install_requires=dep_list,
     classifiers=[
@@ -28,8 +28,6 @@ setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     entry_points={
-        'console_scripts': [
-            'yolo = yolo.__main__:main'
-        ],
+        "console_scripts": ["yolo = yolo.__main__:main"],
     },
 )
