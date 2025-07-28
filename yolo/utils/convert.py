@@ -1,22 +1,25 @@
 from yolo.base import Rectangle, Point
 
 
-def annos_to_rects(annos: dict) -> list[(str, Rectangle)]:
+def objects_to_rects(objects: dict) -> list[(str, Rectangle)]:
     """Convert a list of annotations to a list of rectangles
 
-    :param annos: list of annotations
-    :type annos: dict
+    :param object: list of objects
+    :type object: dict
 
     :returns: list of rectangles
     :rtype: list[Rectangle]
     """
     rects = []
-    object: dict
-    for object in annos.get("objects", []):
-        bbox = object.get("bbox", None)
+    obj: dict
+    for obj in objects:
+        bbox = obj.get("bndbox", None)
+        if bbox is None:
+            continue
         rect = Rectangle.from_corners(
-            Point(bbox["xmin"], bbox["ymin"]),
-            Point(bbox["ymax"], bbox["ymax"]),
+            Point(float(bbox["xmin"]), float(bbox["ymin"])),
+            Point(float(bbox["ymax"]), float(bbox["ymax"])),
         )
-        rects.append((object["name"], rect))
+        rect = rect * 0.25
+        rects.append((obj["name"], rect))
     return rects

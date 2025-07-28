@@ -11,5 +11,5 @@ from yolo.utils.io import (
 )
 
 from yolo.utils.convert import (
-    annos_to_rects,
+    objects_to_rects,
 )

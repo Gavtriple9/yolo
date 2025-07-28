@@ -29,7 +29,7 @@ class Rectangle:
         self.c = c
 
     @staticmethod
-    def from_corners(self, top_left: Point, bottom_right: Point) -> "Rectangle":
+    def from_corners(top_left: Point, bottom_right: Point) -> "Rectangle":
         return Rectangle(
             Point(
                 (top_left.x + bottom_right.x) / 2,
@@ -53,6 +53,12 @@ class Rectangle:
             and self.h == other.h
             and self.c == other.c
         )
+
+    def __mul__(self, scalar: float) -> "Rectangle":
+        s = math.sqrt(math.fabs(scalar))
+        w = self.w * s
+        h = self.h * s
+        return Rectangle((self.center[0], self.center[1]), w, h, self.c)
 
     def x(self) -> float:
         return self.center.x

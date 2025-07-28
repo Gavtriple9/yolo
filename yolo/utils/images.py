@@ -44,7 +44,9 @@ def draw_bbox_on_image(
     :returns: modified image buffer as a numpy array
     :rtype: numpy.ndarray
     """
+
     for bbox in bbox_list:
+        center = bbox.center.integral()
         start_point = bbox.get_top_left_pixel()
         end_point = bbox.get_bottom_right_pixel()
 
@@ -59,7 +61,12 @@ def draw_bbox_on_image(
 
         # Draw the center point
         if draw_midpoint:
-            cv2.circle(image_buf, bbox.center, MIDPOINT_SIZE, MIDPOINT_COLOR, -1)
+            cv2.circle(
+                image_buf,
+                (center.x, center.y),
+                MIDPOINT_SIZE,
+                MIDPOINT_COLOR,
+            )
 
     return image_buf
 

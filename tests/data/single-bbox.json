@@ -1,0 +1,32 @@
+{
+    "annotation": {
+        "folder": "VOC2012",
+        "filename": "2008_000002.jpg",
+        "source": {
+            "database": "The VOC2008 Database",
+            "annotation": "PASCAL VOC2008",
+            "image": "flickr"
+        },
+        "size": {
+            "width": "500",
+            "height": "375",
+            "depth": "3"
+        },
+        "segmented": "0",
+        "object": [
+            {
+                "name": "tvmonitor",
+                "pose": "Frontal",
+                "truncated": "0",
+                "occluded": "0",
+                "bndbox": {
+                    "xmin": "34",
+                    "ymin": "11",
+                    "xmax": "448",
+                    "ymax": "293"
+                },
+                "difficult": "0"
+            }
+        ]
+    }
+}
